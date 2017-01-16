@@ -60,6 +60,27 @@ class ConsultasController extends Controller
     }
 
     /**
+     * @Route("/ej4", name="ejercicio4")
+     */
+    public function ej4Action()
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $alumnado = $em->createQueryBuilder()
+            ->select('a')
+            ->from('AppBundle:Alumno', 'a')
+            ->where('a.apellidos LIKE :apellido')
+            ->setParameter('apellido', 'Ojeda %')
+            ->orderBy('a.nombre')
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('consultas/alumnado.html.twig', [
+            'alumnado' => $alumnado
+        ]);
+    }
+
+    /**
      * @Route("/ej5", name="ejercicio5")
      */
     public function ej5Action()
