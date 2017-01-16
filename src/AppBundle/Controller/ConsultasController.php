@@ -40,6 +40,26 @@ class ConsultasController extends Controller
     }
 
     /**
+     * @Route("/ej3/{parametro}", name="ejercicio3")
+     */
+    public function ej3Action($parametro)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $alumnado = $em->createQueryBuilder()
+            ->select('a')
+            ->from('AppBundle:Alumno', 'a')
+            ->where('a.nombre = :nombre')
+            ->setParameter('nombre', $parametro)
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('consultas/alumnado.html.twig', [
+            'alumnado' => $alumnado
+        ]);
+    }
+
+    /**
      * @Route("/ej5", name="ejercicio5")
      */
     public function ej5Action()
