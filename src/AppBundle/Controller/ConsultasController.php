@@ -123,4 +123,27 @@ class ConsultasController extends Controller
             'numero' => $alumnadoCuenta
         ]);
     }
+
+    /**
+     * @Route("/ej7/{anio}", name="ejercicio7", requirements={"anio"="\d{4}"})
+     */
+    public function ej7Action($anio)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $alumnado = $em->createQueryBuilder()
+            ->select('a')
+            ->from('AppBundle:Alumno', 'a')
+            ->where('a.fechaNacimiento >= :fechaInicio')
+            ->andWhere('a.fechaNacimiento < :fechaFin')
+            ->setParameter('fechaInicio', new \DateTime("$anio-01-01"))
+            ->setParameter('fechaFin', new \DateTime(($anio + 1) . '-01-01'))
+            ->orderBy('a.fechaNacimiento', 'DESC')
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('consultas/alumnado.html.twig', [
+            'alumnado' => $alumnado
+        ]);
+    }
 }
