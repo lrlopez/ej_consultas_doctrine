@@ -187,10 +187,10 @@ class ConsultasController extends Controller
             ->select('g')
             ->addSelect('COUNT(a)')
             ->addSelect('t')
-            ->from('AppBundle:Alumno', 'a')
-            ->innerJoin('AppBundle:Grupo', 'g', 'WITH', 'g.id = a.grupo')
+            ->from('AppBundle:Grupo', 'g')
+            ->innerJoin('g.alumnado', 'a')
             ->innerJoin('g.tutor', 't')
-            ->groupBy('g')
+            ->groupBy('g.id')
             ->orderBy('g.descripcion', 'DESC')
             ->getQuery()
             ->getResult();
