@@ -47,8 +47,10 @@ class ConsultasController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $alumnado = $em->createQueryBuilder()
-            ->select('a')
+            ->select('a')       // ->select(['a', 'g']) también es equivalente
+            ->addSelect('g')
             ->from('AppBundle:Alumno', 'a')
+            ->join('a.grupo', 'g')
             ->where('a.nombre = :nombre')
             ->setParameter('nombre', $parametro)
             ->getQuery()
