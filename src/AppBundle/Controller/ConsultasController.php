@@ -146,4 +146,23 @@ class ConsultasController extends Controller
             'alumnado' => $alumnado
         ]);
     }
+
+    /**
+     * @Route("/ej10", name="ejercicio10")
+     */
+    public function ej10Action()
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $grupos = $em->createQueryBuilder()
+            ->select('g')
+            ->from('AppBundle:Grupo', 'g')
+            ->orderBy('g.descripcion', 'DESC')
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('consultas/grupos.html.twig', [
+            'grupos' => $grupos
+        ]);
+    }
 }
