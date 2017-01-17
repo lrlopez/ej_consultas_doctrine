@@ -148,6 +148,25 @@ class ConsultasController extends Controller
     }
 
     /**
+     * @Route("/ej8", name="ejercicio8")
+     */
+    public function ej8Action()
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $grupos = $em->createQueryBuilder()
+            ->select('g')
+            ->from('AppBundle:Grupo', 'g')
+            ->orderBy('g.descripcion', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('consultas/grupos_ej8.html.twig', [
+            'grupos' => $grupos
+        ]);
+    }
+
+    /**
      * @Route("/ej10", name="ejercicio10")
      */
     public function ej10Action()
@@ -166,7 +185,7 @@ class ConsultasController extends Controller
             ->getQuery()
             ->getResult();
 
-        return $this->render('consultas/grupos.html.twig', [
+        return $this->render('consultas/grupos_ej10.html.twig', [
             'grupos' => $grupos
         ]);
     }
