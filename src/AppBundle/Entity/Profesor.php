@@ -49,6 +49,15 @@ class Profesor
      * @ORM\ManyToMany(targetEntity="Grupo", inversedBy="profesorado")
      */
     private $grupos;
+
+    /**
+     * Convierte el profesor en una cadena de texto
+     */
+    public function __toString()
+    {
+        return $this->getApellidos() . ', ' . $this->getNombre();
+    }
+
     /**
      * Constructor
      */
