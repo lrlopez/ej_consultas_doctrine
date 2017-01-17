@@ -14,9 +14,9 @@
         <tbody>
             {% for grupo in grupos %}
                 <tr>
-                    <td>{{ grupo.descripcion }}</td>
-                    <td>{{ grupo.alumnado|length }}</td>
-                    <td>{{ grupo.tutor.nombre }}</td>
+                    <td>{{ grupo[0].descripcion }}</td>
+                    <td>{{ grupo[1] }}</td>
+                    <td>{{ grupo[0].tutor.nombre }}</td>
                 </tr>
             {% endfor %}
         </tbody>
