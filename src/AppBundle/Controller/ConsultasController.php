@@ -30,7 +30,7 @@ class ConsultasController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $alumnado = $em->createQuery(
-            'SELECT a FROM AppBundle:Alumno a WHERE a.nombre != :nombre')
+            'SELECT a, g FROM AppBundle:Alumno a JOIN a.grupo g WHERE a.nombre != :nombre')
             ->setParameter('nombre', 'María')
             ->getResult();
 
