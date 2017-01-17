@@ -101,4 +101,26 @@ class ConsultasController extends Controller
             'alumnado' => $alumnado
         ]);
     }
+
+    /**
+     * @Route("/ej6", name="ejercicio6")
+     */
+    public function ej6Action()
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $alumnadoCuenta = $em->createQueryBuilder()
+            ->select('COUNT(a)')
+            ->from('AppBundle:Alumno', 'a')
+            ->where('a.fechaNacimiento >= :fechaInicio')
+            ->andWhere('a.fechaNacimiento < :fechaFin')
+            ->setParameter('fechaInicio', new \DateTime('1997-01-01'))
+            ->setParameter('fechaFin', new \DateTime('1998-01-01'))
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        return $this->render('consultas/cuenta.html.twig', [
+            'numero' => $alumnadoCuenta
+        ]);
+    }
 }
