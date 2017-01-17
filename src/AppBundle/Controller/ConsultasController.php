@@ -156,7 +156,9 @@ class ConsultasController extends Controller
         $em = $this->getDoctrine()->getManager();
         $grupos = $em->createQueryBuilder()
             ->select('g')
+            ->addSelect('t')
             ->from('AppBundle:Grupo', 'g')
+            ->join('g.tutor', 't')
             ->orderBy('g.descripcion', 'ASC')
             ->getQuery()
             ->getResult();
