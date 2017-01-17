@@ -52,6 +52,14 @@ class Alumno
     private $partes;
 
     /**
+     * Convierte el alumno en una cadena de texto
+     */
+    public function __toString()
+    {
+        return $this->getApellidos() . ', ' . $this->getNombre() . ' (' . $this->getGrupo()->getDescripcion() . ')';
+    }
+
+    /**
      * Constructor
      */
     public function __construct()
